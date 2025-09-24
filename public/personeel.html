@@ -1,0 +1,41 @@
+<!DOCTYPE html>                                      
+<html lang="nl"> 
+<head> 
+	<title> Personeel </title> 
+	<meta charset="utf-8" /> 
+	<style>
+        div, footer {margin-top: 20px;}
+		body  {width : 50%; max-width:500px; margin: auto; margin-top:50px;}
+		th,td {text-align : left; padding-right:10px;}
+	</style>	
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+</head> 
+<body onload="laad();"> 
+    <h1>Personeel</h1>  
+	<table><tr><th>Werknemer</th><th>Telefoon</th><th>Email</th><th>Functie</th></tr>
+		<tbody id="tabelInhoud"></tbody>
+	</table>
+	<footer>&copy; 2021 AMJE</footer> 
+</body>
+
+	<script>												
+		"use strict"
+        const apiBasis = "http://127.0.0.1:8000/api/"
+        const apiWerknemers = apiBasis + "werknemers"
+        const apiFuncties = apiBasis + "functies"
+
+		let werknemers = []
+
+		const laad = async () => {    
+			console.log('Laad gegevens')
+            const response = await axios.get(apiWerknemers)
+            werknemers = await response.data
+			toon()
+		}
+		const toon = () => {    
+			let tabelInhoud = ''
+			werknemers.map(el => tabelInhoud += `<tr><td>${el.naam}</td><td>${el.telefoon}</td><td>${el.email}</td><td>${el.functie_id}</td></tr>`) 
+			document.querySelector("#tabelInhoud").innerHTML = tabelInhoud
+		}
+	</script>	
+</html>
