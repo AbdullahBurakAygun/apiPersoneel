@@ -6,12 +6,13 @@ use App\Models\Werknemer;
 use Illuminate\Http\Request;
 
 
+
 class WerknemerController extends Controller
 {
      // GET /api/werknemers
-    public function index()
+    public function indexFunctie(Request $request, $id)
     {
-        return Werknemer::all();
+        return Werknemer::where('functie_id',$id)->get();
     }
 
     /**
@@ -39,8 +40,8 @@ class WerknemerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Werknemer $werknemer)
+    public function destroyFunctie(Request $request, $id)
     {
-       $werknemer->delete();
+      Werknemer::where('functie_id', $id)->delete();
     }
 }

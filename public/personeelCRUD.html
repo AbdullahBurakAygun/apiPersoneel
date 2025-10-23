@@ -56,6 +56,16 @@
             werknemers = await response.data
 		}
 
+		const laadFunctieWerknemers = async () => {
+		const functie = document.querySelector("#selectInhoud").value
+			console.log('selecteer Functie ', functie)
+			const apiFunctiesWerknemers = `${apiFuncties}${functie}/werknemers?sort=naam`
+			const response = await axios.get(apiFunctiesWerknemers)
+			json = await response.data
+			toon()
+		}
+
+
 		const toonWerknemers = () => {    
 			let tabelInhoud = ''
 			werknemers.map(el => tabelInhoud += `<tr><td>${el.naam}</td><td>${el.telefoon}</td><td>${el.email}</td>
@@ -88,6 +98,7 @@
 			console.log('status code', respons.status)
 			await laadWerknemers()
 			toonWerknemers()
-		}		
+		}
+				
 	</script>	
 </html>
